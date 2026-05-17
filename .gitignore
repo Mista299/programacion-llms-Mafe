@@ -1,0 +1,6 @@
+questionsToAnswer/
+docs/
+venv/
+INSTRUCTIONS.md
+CLAUDE.md
+__pycache__/
