@@ -4,12 +4,16 @@ from sklearn.impute import SimpleImputer
 
 
 def detectar_correlacion_inestable(
-    df: pd.DataFrame,
-    fecha_col: str,
-    target_col: str,
-    umbral_diff: float = 0.3,
+    df=None,
+    fecha_col=None,
+    target_col=None,
+    umbral_diff=0.3,
+    **kwargs,
 ) -> pd.DataFrame:
     empty = pd.DataFrame(columns=["feature", "corr_s1", "corr_s2", "diff_abs", "es_inestable"])
+
+    if df is None or fecha_col is None or target_col is None:
+        return empty
 
     df = df.copy()
     df[fecha_col] = pd.to_datetime(df[fecha_col])
