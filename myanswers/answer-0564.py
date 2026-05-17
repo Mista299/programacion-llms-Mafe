@@ -27,14 +27,11 @@ def detectar_correlacion_inestable(
         and pd.api.types.is_numeric_dtype(df[c])
     ]
 
-    # Fit imputer on all data to ensure consistent column handling across semesters
-    imputer = SimpleImputer(strategy="median")
-    imputer.fit(df[feature_cols].values)
-
     def correlaciones(sub):
         X = sub[feature_cols].values
         y = sub[target_col].values
-        X_imp = imputer.transform(X)
+        imputer = SimpleImputer(strategy="median", keep_empty_features=True)
+        X_imp = imputer.fit_transform(X)
         corrs = []
         for j in range(X_imp.shape[1]):
             cc = np.corrcoef(X_imp[:, j], y)[0, 1]
